@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Félix M. Domínguez - En construcción</title>
+    <style>
+        body {
+            margin: 0;
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #000; /* fondo negro base */
+        }
+
+        .card {
+            background: rgba(15, 15, 15, 0.9); 
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
+            color: #ffffff;
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            max-width: 500px;
+            z-index: 10;
+            position: relative;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .card h1 {
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #cccccc;
+            font-style: italic;
+        }
+
+        .card a {
+            color: #ff4d4d;
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid #ff4d4d;
+            padding: 10px 20px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .card a:hover {
+            background: #ff4d4d;
+            color: #000000;
+            box-shadow: 0 0 15px #ff4d4d;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Félix M. Domínguez</h1>
+        <p>IT Specialist | System Administrator</p>
+        <p><i>Mi nuevo portfolio técnico está en proceso de despliegue...</i></p>
+        <p><a href="https://www.linkedin.com/in/fmdominguez">Contactar en LinkedIn</a></p>
+    </div>
+<canvas id="sharinganCanvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background-color: #000;"></canvas>
+
+<script>
+const canvas = document.getElementById('sharinganCanvas');
+const ctx = canvas.getContext('2d');
+
+let width, height, centerX, centerY;
+let angle = 0;
+
+function resize() {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+    centerX = width / 2;
+    centerY = height / 2;
+}
+
+window.addEventListener('resize', resize);
+resize();
+
+function draw() {
+    // Fondo negro con persistencia
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
+    ctx.fillRect(0, 0, width, height);
+
+    angle += 0.003;
+
+    ctx.save();
+    ctx.translate(centerX, centerY);
+    ctx.rotate(angle);
+
+    // anillos finos
+    for (let i = 1; i <= 15; i++) {
+        ctx.beginPath();
+        // Radio dinámico 
+        ctx.arc(0, 0, i * 60, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(180, 0, 0, ${0.4 - (i * 0.02)})`; 
+        ctx.lineWidth = 1.5; // Líneas finas tipo radar
+        ctx.setLineDash([Math.random() * 50, Math.random() * 100]); // Líneas discontinuas
+        ctx.stroke();
+
+        // Añadir los "puntos" píxeles cuadrados
+        if (i % 2 === 0) {
+            for (let j = 0; j < 3; j++) {
+                ctx.save();
+                ctx.rotate((Math.PI * 2 / 3) * j + (i * 0.2));
+                
+                // píxel rojo intenso
+                ctx.fillStyle = "#ff0000";
+                
+                // píxel (parpadeo)
+                if (Math.random() > 0.5) {
+                    // Dibujamos pequeños cuadrados de 4x4 píxeles
+                    ctx.fillRect(i * 60 - 2, -2, 6, 6);
+                }
+                ctx.restore();
+            }
+        }
+    }
+    ctx.restore();
+
+    // píxeles aleatorios por la pantalla
+    for (let k = 0; k < 10; k++) {
+        ctx.fillStyle = `rgba(255, 0, 0, ${Math.random() * 0.3})`;
+        ctx.fillRect(Math.random() * width, Math.random() * height, 2, 2);
+    }
+
+    requestAnimationFrame(draw);
+}
+
+draw();
+</script>
+</body>
+</html>
