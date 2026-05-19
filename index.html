@@ -64,21 +64,19 @@
       position: relative; z-index: 1;
       max-width: 860px;
       margin: 0 auto;
-      padding: 0 24px 80px;
+      padding: 48px 24px 80px;
     }
 
     /* ── NAV ── */
     nav {
-      position: sticky; top: 0; z-index: 100;
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
       display: flex; justify-content: space-between; align-items: center;
-      padding: 0 24px;
+      padding: 0 32px;
       height: 48px;
       border-bottom: 1px solid var(--border);
-      background: rgba(8,8,8,0.95);
+      background: rgba(8,8,8,0.97);
       backdrop-filter: blur(8px);
-      /* nav ocupa todo el ancho de pantalla */
-      margin: 0 -24px;
-      width: calc(100% + 48px);
       box-sizing: border-box;
     }
 
@@ -539,11 +537,30 @@
       margin-bottom: 3px;
     }
 
+    /* ── TOAST ── */
+    #toast {
+      position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%);
+      z-index: 9000;
+      background: var(--bg2);
+      border: 1px solid var(--red);
+      color: var(--red);
+      font-family: var(--pixel);
+      font-size: 6px;
+      letter-spacing: 1px;
+      padding: 10px 18px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s;
+      white-space: nowrap;
+    }
+    #toast.show { opacity: 1; }
+
   </style>
 </head>
 <body>
 
 <canvas id="bg-canvas"></canvas>
+<div id="toast">✓ Email copiado al portapapeles</div>
 
 <div class="page">
 
@@ -556,7 +573,7 @@
       <li><a href="#projects">Labs</a></li>
     </ul>
     <div class="nav-contact">
-      <a href="mailto:contacto@felixmdominguez.com">✉ Email</a>
+      <a href="#" onclick="copyEmail(event)" title="Copiar al portapapeles">✉ contacto@felixmdominguez.com</a>
       <a href="https://www.linkedin.com/in/fmdominguez" target="_blank" rel="noopener">↗ LinkedIn</a>
     </div>
     <div class="nav-burger" id="burger" onclick="toggleMenu()">
@@ -907,6 +924,24 @@ function toggleMenu() {
 function closeMenu() {
   document.getElementById('burger').classList.remove('open');
   document.getElementById('mobileMenu').classList.remove('open');
+}
+
+/* ── COPY EMAIL ── */
+function copyEmail(e) {
+  e.preventDefault();
+  navigator.clipboard.writeText('contacto@felixmdominguez.com').then(() => {
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+
+    // Se oculta solo si el usuario copia otra cosa
+    document.addEventListener('copy', function onCopy() {
+      // Pequeño delay para que no se oculte por el propio evento de esta copia
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 100);
+      document.removeEventListener('copy', onCopy);
+    });
+  });
 }
 
 /* ── BACKGROUND CANVAS: radar / sharingan ── */
