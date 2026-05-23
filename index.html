@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Félix M. Domínguez Rondón — SysAdmin</title>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
@@ -71,7 +72,9 @@
     nav {
       position: fixed; top: 0; left: 0; right: 0;
       z-index: 100;
-      display: flex; justify-content: space-between; align-items: center;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
       padding: 0 32px;
       height: 48px;
       border-bottom: 1px solid var(--border);
@@ -115,24 +118,37 @@
 
     .nav-contact {
       display: flex; gap: 12px; align-items: center;
+      justify-content: flex-end;
     }
 
     .nav-contact a {
       font-family: var(--pixel);
       font-size: 6px;
-      color: var(--muted);
+      color: var(--red);
       text-decoration: none;
       letter-spacing: 1px;
       padding: 6px 10px;
-      border: 1px solid var(--border);
+      border: 1px solid var(--red);
       background: var(--red-faint);
-      transition: all .2s;
+      transition: all .25s;
       white-space: nowrap;
+      box-shadow:
+        0 0 6px var(--red),
+        0 0 12px rgba(255,34,34,0.4),
+        inset 0 0 6px rgba(255,34,34,0.08);
+      text-shadow: 0 0 8px var(--red), 0 0 16px rgba(255,34,34,0.5);
     }
 
     .nav-contact a:hover {
-      color: var(--red);
+      color: #fff;
       border-color: var(--red);
+      background: rgba(255,34,34,0.15);
+      box-shadow:
+        0 0 10px var(--red),
+        0 0 24px rgba(255,34,34,0.6),
+        0 0 48px rgba(255,34,34,0.2),
+        inset 0 0 10px rgba(255,34,34,0.12);
+      text-shadow: 0 0 10px #fff, 0 0 20px var(--red), 0 0 40px var(--red);
     }
 
     /* hamburger (mobile) */
@@ -140,7 +156,7 @@
       display: none;
       flex-direction: column; gap: 5px;
       cursor: pointer;
-      padding: 4px;
+      padding: 8px;
     }
     .nav-burger span {
       display: block; width: 20px; height: 2px;
@@ -175,36 +191,59 @@
     }
     .nav-mobile-menu a:hover { color: var(--red); }
     .nav-mobile-menu a.contact-link {
-      color: var(--muted);
-      border: 1px solid var(--border);
+      color: var(--red);
+      border: 1px solid var(--red);
       padding: 8px 12px;
       background: var(--red-faint);
+      box-shadow:
+        0 0 6px var(--red),
+        0 0 12px rgba(255,34,34,0.4),
+        inset 0 0 6px rgba(255,34,34,0.08);
+      text-shadow: 0 0 8px var(--red), 0 0 16px rgba(255,34,34,0.5);
+    }
+    .nav-mobile-menu a.contact-link:hover {
+      color: #fff;
+      background: rgba(255,34,34,0.15);
+      box-shadow:
+        0 0 10px var(--red),
+        0 0 24px rgba(255,34,34,0.6),
+        0 0 48px rgba(255,34,34,0.2),
+        inset 0 0 10px rgba(255,34,34,0.12);
+      text-shadow: 0 0 10px #fff, 0 0 20px var(--red), 0 0 40px var(--red);
     }
 
     /* ── HERO ── */
     .hero {
       padding: 60px 0 60px;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
       border-bottom: 1px solid var(--border);
     }
 
     .hero-tag {
       font-family: var(--pixel);
-      font-size: 7px;
+      font-size: 11px;
       color: var(--red);
-      letter-spacing: 3px;
+      letter-spacing: 2px;
       margin-bottom: 18px;
       opacity: .8;
+      text-align: center;
+      width: 100%;
+      word-break: break-word;
+      overflow-wrap: break-word;
+      line-height: 2.6;
     }
 
     .hero h1 {
       font-family: var(--vt);
-      font-size: clamp(48px, 8vw, 80px);
+      font-size: clamp(72px, 12vw, 120px);
       line-height: 1;
       color: #fff;
       letter-spacing: -1px;
+      text-align: center;
+      width: 100%;
     }
 
     .hero h1 span {
@@ -216,8 +255,10 @@
       font-family: var(--mono);
       font-size: 13px;
       color: var(--muted);
-      margin-top: 16px;
+      margin: 16px auto 0;
+      width: 100%;
       max-width: 560px;
+      text-align: center;
     }
 
     .hero-sub strong {
@@ -225,15 +266,18 @@
     }
 
     .hero-badges {
-      display: flex; gap: 10px; flex-wrap: wrap;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
       margin-top: 28px;
     }
 
     .badge {
       font-family: var(--pixel);
-      font-size: 6px;
+      font-size: 9px;
       letter-spacing: 1px;
-      padding: 6px 10px;
+      padding: 8px 14px;
       border: 1px solid var(--border);
       color: var(--muted);
       background: var(--red-faint);
@@ -271,7 +315,7 @@
 
     .section-title {
       font-family: var(--pixel);
-      font-size: 10px;
+      font-size: 14px;
       color: var(--red);
       letter-spacing: 2px;
       text-transform: uppercase;
@@ -325,11 +369,12 @@
 
     .skill-cat {
       font-family: var(--pixel);
-      font-size: 6px;
+      font-size: 11px;
       color: var(--red);
       letter-spacing: 2px;
-      margin-bottom: 10px;
+      margin-bottom: 16px;
       text-transform: uppercase;
+      line-height: 2;
     }
 
     .skill-items {
@@ -383,10 +428,10 @@
 
     .exp-company {
       font-family: var(--pixel);
-      font-size: 7px;
+      font-size: 10px;
       color: var(--red);
       letter-spacing: 1px;
-      line-height: 1.5;
+      line-height: 1.8;
     }
 
     .exp-date {
@@ -423,8 +468,8 @@
 
     .exp-tag {
       font-family: var(--pixel);
-      font-size: 5px;
-      padding: 4px 8px;
+      font-size: 10px;
+      padding: 8px 12px;
       border: 1px solid rgba(255,34,34,0.2);
       color: var(--red-dim);
       letter-spacing: 1px;
@@ -445,10 +490,11 @@
 
     .proj-title {
       font-family: var(--pixel);
-      font-size: 8px;
+      font-size: 11px;
       color: var(--red);
       letter-spacing: 1px;
-      margin-bottom: 12px;
+      line-height: 1.8;
+      margin-bottom: 16px;
     }
 
     .proj-desc {
@@ -460,6 +506,119 @@
     }
 
     .proj-desc strong { color: #bbb; font-weight: normal; }
+
+    /* ── CONTACT FORM ── */
+    .contact-form-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .form-group label {
+      font-family: var(--pixel);
+      font-size: 9px;
+      color: var(--red);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--text);
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+      resize: none;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: var(--muted);
+      opacity: .5;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--red);
+      box-shadow: 0 0 8px rgba(255,34,34,0.2);
+    }
+
+    .form-submit {
+      font-family: var(--pixel);
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--red);
+      background: var(--red-faint);
+      border: 1px solid var(--red);
+      padding: 12px 28px;
+      cursor: pointer;
+      align-self: flex-start;
+      transition: all .25s;
+      box-shadow: 0 0 6px var(--red), 0 0 12px rgba(255,34,34,0.4);
+      text-shadow: 0 0 8px var(--red);
+    }
+
+    .form-submit:hover {
+      background: rgba(255,34,34,0.15);
+      box-shadow: 0 0 10px var(--red), 0 0 24px rgba(255,34,34,0.6);
+      color: #fff;
+      text-shadow: 0 0 10px #fff, 0 0 20px var(--red);
+    }
+
+    .form-submit:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+      box-shadow: none;
+      text-shadow: none;
+    }
+
+    .form-status {
+      font-family: var(--pixel);
+      font-size: 7px;
+      letter-spacing: 1px;
+      padding: 10px 14px;
+      border: 1px solid transparent;
+      display: none;
+    }
+
+    .form-status.success {
+      display: block;
+      color: #00ff88;
+      border-color: rgba(0,255,136,0.3);
+      background: rgba(0,255,136,0.05);
+      text-shadow: 0 0 8px #00ff88;
+    }
+
+    .form-status.error {
+      display: block;
+      color: var(--red);
+      border-color: var(--border);
+      background: var(--red-faint);
+    }
+
+    @media (max-width: 700px) {
+      .form-row { flex-direction: column; gap: 16px; }
+      .form-submit { align-self: stretch; text-align: center; }
+    }
 
     /* ── PIXEL DECORATIONS ── */
     .px-corner {
@@ -488,20 +647,54 @@
       line-height: 2;
     }
 
+    .footer-txt--right {
+      text-align: right;
+    }
+
     .footer-txt span {
       color: var(--red);
     }
 
     /* ── RESPONSIVE GLOBAL ── */
     @media (max-width: 700px) {
-      nav { padding: 0 16px; margin: 0 -16px; width: calc(100% + 32px); }
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 24px;
+      }
       .nav-links, .nav-contact { display: none; }
       .nav-burger { display: flex; }
-      .page { padding: 0 16px 80px; }
-      .hero { padding: 40px 0 40px; }
-      .section-title { font-size: 8px; }
+      .page { padding: 48px 16px 80px; }
+      .hero { padding: 32px 0 40px; align-items: center; }
+      .hero-tag { font-size: 9px; letter-spacing: 1px; line-height: 2.8; }
+      .section-title { font-size: 12px; }
+      .exp-company {
+        font-size: 9px;
+        word-break: break-word;
+        line-height: 2;
+      }
+      .proj-title {
+        font-size: 10px;
+        word-break: break-word;
+        line-height: 2;
+      }
       .exp-header { flex-direction: column; gap: 4px; }
-      footer { flex-direction: column; align-items: flex-start; }
+      footer {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .footer-txt,
+      .footer-txt--right { text-align: center !important; }
+      .nav-mobile-menu { align-items: center; }
+    }
+
+    /* ── PROJECTS LIST ── */
+    .proj-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
     }
 
     /* ── STATUS BAR ── */
@@ -511,7 +704,9 @@
       height: 24px;
       background: rgba(8,8,8,0.95);
       border-top: 1px solid var(--border);
-      display: flex; align-items: center; gap: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
       padding: 0 20px;
       font-family: var(--pixel);
       font-size: 5px;
@@ -571,6 +766,7 @@
       <li><a href="#skills">Skills</a></li>
       <li><a href="#exp">Experiencia</a></li>
       <li><a href="#projects">Labs</a></li>
+      <li><a href="#contact">Contacto</a></li>
     </ul>
     <div class="nav-contact">
       <a href="#" onclick="copyEmail(event)" title="Copiar al portapapeles">✉ contacto@felixmdominguez.com</a>
@@ -584,7 +780,8 @@
     <a href="#skills" onclick="closeMenu()">Skills</a>
     <a href="#exp" onclick="closeMenu()">Experiencia</a>
     <a href="#projects" onclick="closeMenu()">Labs</a>
-    <a href="mailto:contacto@felixmdominguez.com" class="contact-link">✉ contacto@felixmdominguez.com</a>
+    <a href="#contact" onclick="closeMenu()">Contacto</a>
+    <a href="#" onclick="copyEmail(event); closeMenu();" class="contact-link">✉ contacto@felixmdominguez.com</a>
     <a href="https://www.linkedin.com/in/fmdominguez" target="_blank" rel="noopener" class="contact-link">↗ LinkedIn</a>
   </div>
 
@@ -836,7 +1033,7 @@
       <div class="section-line"></div>
     </div>
 
-    <div style="display:flex;flex-direction:column;gap:2px;">
+    <div class="proj-list">
 
     <div class="proj-card">
       <div class="proj-title">Laboratorio de Infraestructura Multiplataforma y Observabilidad</div>
@@ -860,37 +1057,89 @@
     </div>
 
     <div class="proj-card">
-      <div class="proj-title">Publicación Web, DNS y Control de Versiones con GitHub</div>
+      <div class="proj-title">Infraestructura de Comunicación Serverless: Portfolio, Email Corporativo y Formulario Seguro</div>
       <div class="proj-desc">
-        Uso de <strong>GitHub</strong> para el alojamiento y publicación de sitios web estáticos mediante GitHub Pages, con gestión de registros DNS personalizados para asociar dominio propio al despliegue.<br><br>
-        Control de versiones del código con <strong>Git</strong>: gestión de ramas, commits y seguimiento de cambios aplicado a scripts, configuraciones y proyectos personales.
+        Diseño e implementación de una infraestructura de comunicación completa sobre servicios gestionados en la nube, sin servidor propio ni coste de infraestructura.<br><br>
+        <strong>Publicación y control de versiones:</strong> portfolio web estático desplegado en <strong>GitHub Pages</strong> con dominio personalizado. Gestión de registros DNS para asociar el dominio propio al despliegue. Control de versiones con <strong>Git</strong>: ramas, commits y seguimiento de cambios aplicado a código, scripts y configuraciones.<br><br>
+        <strong>Email corporativo sin servidor:</strong> <strong>Cloudflare Email Routing</strong> actúa como capa de recepción, interceptando los mensajes entrantes al dominio propio y redirigiéndolos a una cuenta central. <strong>Brevo</strong> se integra como relay SMTP para el envío saliente autenticado bajo el dominio personalizado, con <strong>SPF y DKIM</strong> configurados para garantizar entregabilidad y evitar spoofing.<br><br>
+        <strong>Formulario de contacto serverless y blindado:</strong> endpoint en <strong>Cloudflare Workers</strong> que recibe las peticiones del formulario y las enruta via API de Brevo. Seguridad implementada en capas: CORS estricto por origen, verificación anti-bot con <strong>Cloudflare Turnstile</strong> (token criptográfico validado en servidor) y credenciales gestionadas como Secrets encriptados — ninguna clave expuesta en el código fuente público.
       </div>
       <div class="exp-tags">
-        <span class="exp-tag">Git</span>
         <span class="exp-tag">GitHub Pages</span>
+        <span class="exp-tag">Git</span>
         <span class="exp-tag">DNS</span>
-        <span class="exp-tag">Version Control</span>
-      </div>
-    </div>
-
-    <div class="proj-card">
-      <div class="proj-title">Arquitectura de Email Routing sin Infraestructura Dedicada</div>
-      <div class="proj-desc">
-        Diseño e implementación de un sistema de enrutamiento de correo electrónico personalizado aprovechando servicios gestionados en la nube, eliminando la necesidad de servidores de correo propios.<br><br>
-        <strong>Cloudflare Email Routing</strong> actúa como capa de recepción y reenvío para el dominio propio, interceptando los mensajes entrantes y redirigiéndolos hacia una cuenta central. <strong>Brevo</strong> (ex Sendinblue) se integra como relay SMTP gratuito para la gestión del correo saliente, permitiendo el envío autenticado bajo el dominio personalizado.<br><br>
-        El resultado es una infraestructura de correo corporativa completamente funcional —con dominio propio, sin coste de servidor— centralizada en Gmail como cliente unificado.
-      </div>
-      <div class="exp-tags">
-        <span class="exp-tag">Cloudflare</span>
+        <span class="exp-tag">Cloudflare Workers</span>
+        <span class="exp-tag">Cloudflare Turnstile</span>
         <span class="exp-tag">Email Routing</span>
-        <span class="exp-tag">SMTP</span>
-        <span class="exp-tag">Brevo</span>
-        <span class="exp-tag">DNS</span>
+        <span class="exp-tag">Brevo SMTP</span>
         <span class="exp-tag">SPF/DKIM</span>
+        <span class="exp-tag">CORS</span>
+        <span class="exp-tag">Serverless</span>
       </div>
     </div>
 
     </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <span class="section-title">Contacto</span>
+      <div class="section-line"></div>
+    </div>
+
+    <form class="contact-form-wrap" id="contactForm"
+          action="https://portfolio-contact.fmdrcloud.workers.dev"
+          method="POST">
+
+      <!-- Anti-spam botcheck -->
+      <input type="checkbox" name="botcheck" style="display:none">
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="cf-name">Nombre</label>
+          <input type="text" id="cf-name" name="name"
+                 placeholder="Tu nombre" required>
+        </div>
+        <div class="form-group">
+          <label for="cf-email">Email</label>
+          <input type="email" id="cf-email" name="email"
+                 placeholder="tu@correo.com" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="cf-company">Empresa</label>
+          <input type="text" id="cf-company" name="company"
+                 placeholder="Tu empresa (opcional)">
+        </div>
+        <div class="form-group">
+          <label for="cf-subject">Asunto</label>
+          <input type="text" id="cf-subject" name="subject"
+                 placeholder="¿En qué puedo ayudarte?">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="cf-message">Mensaje</label>
+        <textarea id="cf-message" name="message"
+                  rows="6" placeholder="Escribe tu mensaje aquí..." required></textarea>
+      </div>
+
+      <div class="cf-turnstile"
+           data-sitekey="0x4AAAAAADVB9SinFbf7pSat"
+           data-theme="dark">
+      </div>
+
+      <div class="form-status" id="formStatus"></div>
+
+      <button type="submit" class="form-submit" id="formSubmit">
+        ↗ Enviar mensaje
+      </button>
+
+    </form>
   </section>
 
   <!-- FOOTER -->
@@ -898,7 +1147,7 @@
     <div class="footer-txt">
       <span>FMD</span> · Madrid · contacto@felixmdominguez.com
     </div>
-    <div class="footer-txt" style="text-align:right;">
+    <div class="footer-txt footer-txt--right">
       © <span>2026</span> Félix M. Domínguez Rondón · Todos los derechos reservados
     </div>
   </footer>
@@ -916,6 +1165,43 @@
 </div>
 
 <script>
+/* ── CONTACT FORM ── */
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+  contactForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn    = document.getElementById('formSubmit');
+    const status = document.getElementById('formStatus');
+
+    btn.disabled    = true;
+    btn.textContent = '// Enviando...';
+    status.className    = 'form-status';
+    status.textContent  = '';
+
+    try {
+      const res  = await fetch(contactForm.action, {
+        method: 'POST',
+        body:   new FormData(contactForm),
+      });
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        status.className   = 'form-status success';
+        status.textContent = '✓ Mensaje enviado correctamente. Te responderé lo antes posible.';
+        contactForm.reset();
+      } else {
+        throw new Error('server');
+      }
+    } catch {
+      status.className   = 'form-status error';
+      status.textContent = '✗ Error al enviar. Inténtalo de nuevo o escríbeme directamente a contacto@felixmdominguez.com';
+    } finally {
+      btn.disabled    = false;
+      btn.textContent = '↗ Enviar mensaje';
+    }
+  });
+}
+
 /* ── MOBILE NAV ── */
 function toggleMenu() {
   document.getElementById('burger').classList.toggle('open');
@@ -927,20 +1213,23 @@ function closeMenu() {
 }
 
 /* ── COPY EMAIL ── */
+let toastTimer = null;
+
 function copyEmail(e) {
   e.preventDefault();
   navigator.clipboard.writeText('contacto@felixmdominguez.com').then(() => {
     const toast = document.getElementById('toast');
+
+    // Cancelar timer anterior si el usuario hace clic varias veces
+    if (toastTimer) clearTimeout(toastTimer);
+
     toast.classList.add('show');
 
-    // Se oculta solo si el usuario copia otra cosa
-    document.addEventListener('copy', function onCopy() {
-      // Pequeño delay para que no se oculte por el propio evento de esta copia
-      setTimeout(() => {
-        toast.classList.remove('show');
-      }, 100);
-      document.removeEventListener('copy', onCopy);
-    });
+    // Auto-ocultar tras 5 segundos
+    toastTimer = setTimeout(() => {
+      toast.classList.remove('show');
+      toastTimer = null;
+    }, 5000);
   });
 }
 
